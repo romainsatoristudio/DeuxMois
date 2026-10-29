@@ -16,7 +16,16 @@ Le widget Calendrier d'Apple n'affiche que le mois en cours : le 29, on ne voit 
 - Fonctionne sur le bureau et dans le Centre de notifications (sauf la très grande taille, réservée au bureau).
 - Interface en français, semaine commençant le lundi.
 
-## Installation
+## Installation rapide (.dmg)
+
+1. Téléchargez `DeuxMois-<version>.dmg` dans les [Releases](../../releases).
+2. Ouvrez-le et glissez **DeuxMois** dans **Applications**.
+3. Ouvrez l'app. macOS la bloque la première fois : elle n'est pas notarisée par Apple (il faudrait un compte développeur payant). Allez dans Réglages Système > Confidentialité et sécurité, puis cliquez sur « Ouvrir quand même » en face de DeuxMois.
+4. Autorisez l'accès au Calendrier, puis ajoutez les widgets (clic droit sur le bureau > « Modifier les widgets… »).
+
+L'app est universelle (Apple Silicon et Intel) et signée sans identité de développeur. Après chaque mise à jour, macOS peut redemander l'accès au Calendrier. Si vous préférez ne pas faire confiance à un binaire téléchargé, compilez-la vous-même (ci-dessous) : le résultat est le même.
+
+## Compiler soi-même
 
 Prérequis : macOS 14 ou plus récent, [Xcode](https://apps.apple.com/app/xcode/id497799835) et [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`).
 
@@ -63,6 +72,7 @@ Retirez les widgets, puis supprimez `/Applications/DeuxMois.app`.
 - `Widget/DeuxMoisWidget.swift` : les deux widgets et leur rafraîchissement.
 - `App/DeuxMoisApp.swift` : la petite app qui porte les widgets et demande l'accès au Calendrier.
 - `project.yml` : description du projet pour XcodeGen (le `.xcodeproj` est généré).
+- `install.sh` : compile et installe sur votre Mac. `release.sh` : fabrique le `.dmg` publié, signé sans identité, et refuse de le produire s'il contient une donnée personnelle.
 
 ## Licence
 
