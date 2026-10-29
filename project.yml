@@ -1,0 +1,68 @@
+name: DeuxMois
+# Réglages propres à chaque personne (équipe Apple, préfixe d'identifiant) :
+# Config/Local.xcconfig, non publié. Voir Config/Local.xcconfig.example.
+configFiles:
+  Debug: Config/Local.xcconfig
+  Release: Config/Local.xcconfig
+options:
+  developmentLanguage: fr
+  deploymentTarget:
+    macOS: "14.0"
+settings:
+  base:
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: Apple Development
+    MARKETING_VERSION: "1.2"
+    CURRENT_PROJECT_VERSION: "8"
+    SWIFT_VERSION: "5.0"
+    ENABLE_HARDENED_RUNTIME: YES
+targets:
+  DeuxMois:
+    type: application
+    platform: macOS
+    sources: [App, Shared]
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: fr
+        CFBundleLocalizations: [fr]
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSCalendarsFullAccessUsageDescription: Les widgets affichent un point de couleur les jours où vos calendriers ont un événement.
+        NSCalendarsUsageDescription: Les widgets affichent un point de couleur les jours où vos calendriers ont un événement.
+        CFBundleDisplayName: Deux Mois
+        LSApplicationCategoryType: public.app-category.productivity
+    entitlements:
+      path: App/App.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.personal-information.calendars: true
+    dependencies:
+      - target: DeuxMoisWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_ID_PREFIX).DeuxMois
+  DeuxMoisWidget:
+    type: app-extension
+    platform: macOS
+    sources: [Widget, Shared]
+    info:
+      path: Widget/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: fr
+        CFBundleLocalizations: [fr]
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSCalendarsFullAccessUsageDescription: Les widgets affichent un point de couleur les jours où vos calendriers ont un événement.
+        NSCalendarsUsageDescription: Les widgets affichent un point de couleur les jours où vos calendriers ont un événement.
+        CFBundleDisplayName: Deux Mois
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: Widget/Widget.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.personal-information.calendars: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_ID_PREFIX).DeuxMois.Widget

@@ -1,0 +1,12 @@
+# Réglages personnels (équipe Apple, préfixe d'identifiant)
+Config/Local.xcconfig
+
+# Généré par XcodeGen et Xcode
+DeuxMois.xcodeproj/
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# macOS
+.DS_Store

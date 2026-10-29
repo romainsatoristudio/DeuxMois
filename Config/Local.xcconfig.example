@@ -1,0 +1,9 @@
+// Copiez ce fichier en Config/Local.xcconfig puis remplissez-le.
+// Config/Local.xcconfig n'est jamais publié (voir .gitignore).
+
+// Identifiant d'équipe Apple (10 caractères). Un compte Apple gratuit suffit :
+// Xcode > Réglages > Comptes, puis l'équipe « Personal Team ».
+DEVELOPMENT_TEAM =
+
+// Préfixe unique pour les identifiants de l'app, par exemple com.votrepseudo
+BUNDLE_ID_PREFIX = com.example
