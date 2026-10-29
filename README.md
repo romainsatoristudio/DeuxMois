@@ -72,6 +72,7 @@ Retirez les widgets, puis supprimez `/Applications/DeuxMois.app`.
 - `Widget/DeuxMoisWidget.swift` : les deux widgets et leur rafraîchissement.
 - `App/DeuxMoisApp.swift` : la petite app qui porte les widgets et demande l'accès au Calendrier.
 - `project.yml` : description du projet pour XcodeGen (le `.xcodeproj` est généré).
+- `tools/make-icon.swift` : dessine l'icône et génère toutes ses tailles (`swift tools/make-icon.swift App/Assets.xcassets/AppIcon.appiconset`).
 - `install.sh` : compile et installe sur votre Mac. `release.sh` : fabrique le `.dmg` publié, signé sans identité, et refuse de le produire s'il contient une donnée personnelle.
 
 ## Licence
