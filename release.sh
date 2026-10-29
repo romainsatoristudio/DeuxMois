@@ -58,7 +58,14 @@ ln -s /Applications "$STAGE/Applications"
 xattr -cr "$STAGE"
 rm -f "$DMG"
 hdiutil create -volname "Deux mois" -srcfolder "$STAGE" -fs HFS+ -format UDZO -ov "$DMG" >/dev/null
-rm -rf "$STAGE"
+
+# macOS enregistre toute app compilée : sans ça, ses widgets apparaissent en double dans la galerie.
+LSREGISTER=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
+for copy in "$APP" "$STAGE/DeuxMois.app"; do
+    pluginkit -r "$copy/Contents/PlugIns/DeuxMoisWidget.appex" 2>/dev/null || true
+    $LSREGISTER -u "$copy" 2>/dev/null || true
+done
+rm -rf "$STAGE" "$DERIVED/Build/Products"
 
 echo "$DMG"
 shasum -a 256 "$DMG"

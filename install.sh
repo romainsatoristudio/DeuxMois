@@ -21,10 +21,6 @@ xcodegen generate --quiet
 xcodebuild -project DeuxMois.xcodeproj -scheme DeuxMois -configuration Release \
     -destination 'platform=macOS' -derivedDataPath build build | grep -E "error:|BUILD"
 
-# Seule la copie de /Applications doit être connue de macOS.
-pluginkit -r "$BUILT/Contents/PlugIns/DeuxMoisWidget.appex" 2>/dev/null || true
-$LSREGISTER -u "$BUILT" 2>/dev/null || true
-
 osascript -e 'quit app "DeuxMois"' 2>/dev/null || true
 pkill -f "$INSTALLED/Contents/PlugIns/DeuxMoisWidget.appex" 2>/dev/null || true
 sleep 1
@@ -32,6 +28,11 @@ rm -rf "$INSTALLED"
 ditto "$BUILT" "$INSTALLED"
 $LSREGISTER -f "$INSTALLED"
 pluginkit -a "$INSTALLED/Contents/PlugIns/DeuxMoisWidget.appex"
+# Seule la copie de /Applications doit être connue de macOS : la copie compilée est
+# désenregistrée puis supprimée, sinon ses widgets apparaissent en double dans la galerie.
+pluginkit -r "$BUILT/Contents/PlugIns/DeuxMoisWidget.appex" 2>/dev/null || true
+rm -rf build/Build/Products
+$LSREGISTER -u "$BUILT" 2>/dev/null || true
 
 # Vide le cache des rendus de widgets (ces deux processus système redémarrent tout seuls).
 killall chronod NotificationCenter 2>/dev/null || true
